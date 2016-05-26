@@ -27,7 +27,8 @@ namespace NetWorkSocket.Models
             });
             ViewModel.Add(new Obserview()
             {
-                PageTitle = " 客户端连接"
+                PageTitle = " 客户端连接",
+                ClassType = typeof(NetWorkSocket.Views.ClientConnect)
             });
             ViewModel.Add(new Obserview()
             {

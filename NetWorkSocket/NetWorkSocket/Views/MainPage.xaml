@@ -104,7 +104,7 @@
                                        Foreground="White"
                                        MaxWidth="{Binding ElementName=SplitViewer, Path=ActualWidth}" 
                                        Margin="10,10,10,20" 
-                                       TextWrapping="Wrap"  />
+                                       TextWrapping="Wrap"/>
                         </ScrollViewer>
                     </Border>
                 </StackPanel>

@@ -24,9 +24,12 @@
                        >
                 请输入端口号,开始监听
             </TextBlock>
-            <TextBox PlaceholderText="端口号,例如:14880"
+            <TextBox x:Name="ServiceTextBox"
+                     PlaceholderText="端口号,例如:14880"
                      Margin="10,10,10,10"/>
-            <Button Margin="10,10,10,10"
+            <Button x:Name="ListenButton"
+                    Margin="10,10,10,10"
+                    Click="ListenButton_Click"
                     HorizontalAlignment="Center"
                     RequestedTheme="Dark"
                     Background="Black"

@@ -26,5 +26,41 @@ namespace NetWorkSocket.Views
         {
             this.InitializeComponent();
         }
+
+        private void SwitchButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            //如果此时是要连接的,则Connect,并给出提示消息;否则断开连接
+            if(SwitchButton.IsChecked==true)
+            {
+                //为连接上的按钮
+                SwitchButton.FontFamily = new FontFamily("Segoe MDL2 Assets");
+                SwitchButton.Content = "\xE840";
+                SuggestBox.IsReadOnly = true;
+            }
+            else
+            {
+                SwitchButton.Content = "\xE718";
+                SuggestBox.IsReadOnly = false;
+            }
+        }
+
+        private void SuggestBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void SuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+
+        }
+
+        //当变为确定状态时,将左侧文本框锁定,并开始连接到服务器
+        private void SwitchButton_Checked(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

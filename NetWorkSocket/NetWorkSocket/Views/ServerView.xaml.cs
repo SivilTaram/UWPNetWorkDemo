@@ -17,6 +17,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Popups;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -87,5 +90,48 @@ namespace NetWorkSocket.Views
                 CoreDispatcherPriority.Normal, () => rootPage.NotifyUser(strMessage, type));
         }
 
+        private void ConfrimReplace()
+        {
+
+        }
+
+        private async void ListenButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CoreApplication.Properties.Keys.Contains("listener"))
+            {
+                MessageDialog dialog = new MessageDialog("已经设置过一个监听端口了!","消息提示");
+                dialog.Commands.Add(
+                    new UICommand(
+                        "返回",
+                        cmd =>
+                        {
+                            return;
+                        }
+                        ));
+                await dialog.ShowAsync();
+                return;
+            }
+            StreamSocketListener Listener = new StreamSocketListener();
+            //绑定监听者的监听事件
+            Listener.ConnectionReceived += OnConnection;
+            //监听者暂时休眠
+            Listener.Control.KeepAlive = false;
+            //开始为监听者绑定端口
+            CoreApplication.Properties.Add("listener", Listener);
+            try
+            {
+                Debug.Write(ServiceTextBox.Text);
+                await Listener.BindServiceNameAsync(ServiceTextBox.Text);
+                //绑定完成后通知用户正在监控
+                rootPage.NotifyUser("正在监听端口:" + ServiceTextBox.Text, NotifyType.StatusMessage);
+                //并且此时无法再更改监听端口Text
+                ServiceTextBox.IsReadOnly = true;
+            }
+            catch (Exception Ex)
+            {
+                Debug.Write(Ex.ToString());
+                rootPage.NotifyUser("监听端口失败", NotifyType.ErrorMessage);
+            }
+        }
     }
 }

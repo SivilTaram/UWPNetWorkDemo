@@ -8,6 +8,72 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid x:Name="WholeView">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <!-- 顶部面板 -->
+            <StackPanel x:Name="DisplayStack"
+                        Grid.Row="0">
+                <TextBlock Text="请输入信息要发送到的服务器端口,并点击右侧按钮进行连接"
+                           FontFamily="Dengxian"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="20,20,20,10"/>
+                <!-- 装饰用的线 -->
+                <Line x:Name="DrawLine"
+                      X1="0" Y1="0"
+                      X2="1360"  Y2="0"
+                      Stroke="Silver"
+                      StrokeThickness="3"
+                      Margin="20,0,20,10"
+                      />
+                <!--相对布局,左侧是一个自动建议框,内容是Listener的内容,右侧是一个连接用的ToggleButton-->
+                <RelativePanel x:Name="Relative" 
+                               Margin="20,5,20,0">
+                    <TextBox x:Name="SuggestBox"
+                             Style="{StaticResource TextBlockBox}"
+                             PlaceholderText="输入服务器监听端口"
+                             TextChanged="SuggestBox_TextChanged"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             >
+                    </TextBox>
+                    <!--eb55 是错误连接 ec77是正确连接-->
+                    <ToggleButton x:Name="SwitchButton"
+                                  RelativePanel.AlignRightWithPanel="True"
+                                  RelativePanel.AlignVerticalCenterWithPanel="True"
+                                  Content="&#xe718;"
+                                  FontSize="20"
+                                  FontFamily="Segoe MDL2 Assets"
+                                  Width="63"
+                                  Click="SwitchButton_Clicked"
+                                  Checked="SwitchButton_Checked"
+                                  Margin="27,0,0,0"
+                                  />
+                </RelativePanel>
+            </StackPanel>
+            <RichEditBox
+                x:Name="SendBox"
+                Grid.Row="1"
+                Margin="20,20,20,50"/>
+            <AppBarButton
+                x:Name="SendButton"
+                HorizontalAlignment="Center"
+                Background="{ThemeResource AppBarBackgroundThemeBrush}"
+                Width="100"
+                Margin="20,0,20,30"
+                Click="SendButton_Click"
+                Grid.Row="2">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" 
+                              Glyph="&#xE8BD;"
+                              Foreground="Teal"
+                              />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </Grid>
     </Grid>
 </Page>
