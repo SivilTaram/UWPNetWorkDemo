@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Popups;
+using NetWorkSocket.Models;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -36,6 +37,21 @@ namespace NetWorkSocket.Views
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            DisplayText.Text = ServerViewModel.GetTextString();
+            if (CoreApplication.Properties.ContainsKey("listener"))
+            {
+                object value;
+                StreamSocketListener listener;
+                CoreApplication.Properties.TryGetValue("listener",out value);
+                listener = value as StreamSocketListener;
+                ServiceTextBox.Text = listener.Information.LocalPort;
+                rootPage.NotifyUser("正在监听端口:" + ServiceTextBox.Text, NotifyType.StatusMessage);
+            }
+        }
+
         private async void OnConnection(
             StreamSocketListener sender,StreamSocketListenerConnectionReceivedEventArgs args)
         {
@@ -62,7 +78,8 @@ namespace NetWorkSocket.Views
                         return;
                     }
                     string actualAcceptString = reader.ReadString(actualStringLength);
-                    DisplayText.Text += actualAcceptString + Environment.NewLine;
+                    ServerViewModel.AddToText(actualAcceptString);
+                    //DisplayText.Text += actualAcceptString + Environment.NewLine;
                     // Display the string on the screen. The event is invoked on a non-UI thread, so we need to marshal
                     // the text back to the UI thread.
                     NotifyUserFromAsyncThread(

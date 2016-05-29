@@ -12,7 +12,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
             <!-- 顶部面板 -->
             <StackPanel x:Name="DisplayStack"
@@ -33,10 +33,9 @@
                 <!--相对布局,左侧是一个自动建议框,内容是Listener的内容,右侧是一个连接用的ToggleButton-->
                 <RelativePanel x:Name="Relative" 
                                Margin="20,5,20,0">
-                    <TextBox x:Name="SuggestBox"
+                    <TextBox x:Name="SeriveBox"
                              Style="{StaticResource TextBlockBox}"
                              PlaceholderText="输入服务器监听端口"
-                             TextChanged="SuggestBox_TextChanged"
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
                              >
@@ -50,7 +49,6 @@
                                   FontFamily="Segoe MDL2 Assets"
                                   Width="63"
                                   Click="SwitchButton_Clicked"
-                                  Checked="SwitchButton_Checked"
                                   Margin="27,0,0,0"
                                   />
                 </RelativePanel>
@@ -64,7 +62,7 @@
                 HorizontalAlignment="Center"
                 Background="{ThemeResource AppBarBackgroundThemeBrush}"
                 Width="100"
-                Margin="20,0,20,30"
+                Margin="20"
                 Click="SendButton_Click"
                 Grid.Row="2">
                 <AppBarButton.Icon>
